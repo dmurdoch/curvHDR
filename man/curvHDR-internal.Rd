@@ -1,5 +1,5 @@
 \name{curvHDR-internal}
-\title{Internal curvHDR Objects}
+\title{Internal curvHDR functions.}
 \alias{addIntervs}
 \alias{areaPolygon}
 \alias{contour1D}

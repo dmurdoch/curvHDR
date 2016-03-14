@@ -71,8 +71,6 @@ plot.curvHDRfilter <- function(x,removeDebri=TRUE,pch=NULL,cex=NULL,
 
    if (ncol(data)==3)    # Trivariate data.
    {
-      require(rgl) ; require(misc3d)
-
       includePartial <- TRUE  # Note: this flag is to allow possible
                               # future fine-tuning that allows for
                               # polyhedra to be excluded if not fully

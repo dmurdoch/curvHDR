@@ -3,7 +3,7 @@
 # For separating a triangular mesh into contiguous
 # components.
 
-# Last changed: 06 APR 2009
+# Last changed: 07 MAR 2016
 
 separateTriPolyh <- function(contour3dObj)
 {
@@ -14,8 +14,8 @@ separateTriPolyh <- function(contour3dObj)
 
    triangleNeighbors <- function(tris) 
    {
-      ve <- misc3d:::t2ve(tris)
-      vt <- misc3d:::vertexTriangles(ve)
+      ve <- t2ve(tris)
+      vt <- vertexTriangles(ve)
       ib <- ve$ib
       n.tri <- ncol(ib)
       tn <- vector("list",n.tri)
@@ -125,7 +125,5 @@ separateTriPolyh <- function(contour3dObj)
 }
 
 ########## End of separateTriPolyh ##########
-
-
 
 

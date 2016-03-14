@@ -2,7 +2,7 @@
 
 # For plotting points in 3D space.
 
-# Last changed: 17 APR 2009
+# Last changed: 07 MAR 2016
 
 plot3D <- function(x,y,z,main=NULL,
                    xlab=deparse(substitute(x)),
@@ -90,7 +90,7 @@ plot3D <- function(x,y,z,main=NULL,
    # Set up axes for unit cube:
    
    rgl.clear()
-   rgl.bg(col=bgCol)
+   rgl.bg(color=bgCol)
    rgl.lines3d(c(0,1.1),rep(0,2),rep(0,2),
                 size=3,col=axCol,add=TRUE)
    rgl.lines3d(rep(0,2),c(0,1.1),rep(0,2),

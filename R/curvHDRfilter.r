@@ -4,16 +4,25 @@
 # multivariate continuous data. The current version
 # supports univaraite, bivariate and trivariate data.
 
-# Last changed: 19 DEC 2011
+# Last changed: 07 MAR 2016
+
+#' @importFrom rgl rgl.clear rgl.bg rgl.spheres
+#' @importFrom misc3d contour3d
+#' @importFrom graphics polygon plot hist
+#' @importFrom stats IQR sd qnorm
+#' @importFrom feature featureSignif
+#' @importFrom grDevices contourLines
+#' @importFrom misc3d contour3d updateTriangles drawScene.rgl
+#' @importFrom geometry convhulln
+#' @importFrom ptinpoly pip3d
+#' @importFrom ks hpi Hpi.diag kde contourLevels
+#' @importFrom hdrcde hdr
+#' @importFrom KernSmooth dpik
 
 curvHDRfilter <- function(x,HDRlevel=0.1,growthFac=NULL,signifLevel=0.05,bwFac=1,
                           gridsize=NULL,removeDebri=TRUE,minSampSize=NULL,
                           HpiGridSize=NULL,quiet=TRUE,graphChk=FALSE)
 {
-   # Add required packages:
- 
-   require("feature") ; require("flowCore") ; require("geometry")
-   require("hdrcde") ; require("ks") ; require("misc3d") ; require("ptinpoly")
 
    # Make sure input data is a matrix with between 1 and 3 columns:
 
@@ -89,20 +98,19 @@ curvHDRfilter <- function(x,HDRlevel=0.1,growthFac=NULL,signifLevel=0.05,bwFac=1
 
       if (dmn==3)
       {
-           library(rgl)
            if (nrow(x)<=2000) xSub <- x
            if (nrow(x)> 2000) xSub <- x[sample(1:nrow(x),2000),]
-           rgl.clear() ; rgl.bg(col="white")
+           rgl.clear() ; rgl.bg(color="white")
            rgl.spheres(xSub[,1],xSub[,2],xSub[,3],col="orange",alpha=0.2,radius=0.025)
       }
         
-      cat("\n Hit Enter to continue.\n") ; ans <- readline()
+      message("Hit Enter to continue.") ; ans <- readline()
    }
 
    if (!quiet)
    {
-      cat("\n")
-      cat("Computing high curvature regions ...\n")
+      ## cat("\n")
+      message("Computing high curvature regions ...")
    }
    
    # Obtain high curvature regions:
@@ -156,11 +164,11 @@ curvHDRfilter <- function(x,HDRlevel=0.1,growthFac=NULL,signifLevel=0.05,bwFac=1
             drawScene.rgl(curvPolys[[j]],add=TRUE)   
          }          
       }
-      cat("\n Hit Enter to continue.\n") ; ans <- readline()
+      message("Hit Enter to continue.") ; ans <- readline()
    }
    
    if (!quiet)
-      cat("Growing convexified high curvature regions ...\n")
+      message("Growing convexified high curvature regions ...")
 
    # Convexify polygons/polyhedra (if d>1).
    # Then grow them by specified growth factor
@@ -283,11 +291,11 @@ curvHDRfilter <- function(x,HDRlevel=0.1,growthFac=NULL,signifLevel=0.05,bwFac=1
             drawScene.rgl(grownPolys[[j]],add=TRUE)
          }      
       }  
-      cat("\n Hit Enter to continue.\n") ; ans <- readline()
+      message("Hit Enter to continue.") ; ans <- readline()
    }
 
    if (!quiet)
-         cat("Obtaining highest density regions ...\n")
+         message("Obtaining highest density regions ...")
 
    # Obtain highest density regions based on data within each
    # grown polyhedron:
@@ -301,12 +309,12 @@ curvHDRfilter <- function(x,HDRlevel=0.1,growthFac=NULL,signifLevel=0.05,bwFac=1
       if (dmn==2)
       {  
          grownPolyMat <- cbind(grownPolys[[jGrow]]$x,grownPolys[[jGrow]]$y)
-         interiorIndics <- as.logical(flowCore:::inpolygon(x,grownPolyMat))
+         interiorIndics <- as.logical(inpolygon(x,grownPolyMat))
       }
          
       if (dmn==3)
       {
-         pip3dInfo <- misc3d:::t2ve(grownPolys[[jGrow]])
+         pip3dInfo <- t2ve(grownPolys[[jGrow]])
          currVertices <- t(pip3dInfo$vb)
          currFaces    <- t(pip3dInfo$ib)
          interiorIndics <- as.logical(pip3d(currVertices,currFaces,x)==1)
@@ -396,7 +404,7 @@ curvHDRfilter <- function(x,HDRlevel=0.1,growthFac=NULL,signifLevel=0.05,bwFac=1
             drawScene.rgl(curvHDRpolys[[j]],add=TRUE)
          }
       }  
-      cat("\n Hit Enter to continue.\n") ; ans <- readline()   
+      message("Hit Enter to continue.") ; ans <- readline()   
    }
 
    for (j in 1:length(curvHDRpolys))
@@ -440,12 +448,12 @@ curvHDRfilter <- function(x,HDRlevel=0.1,growthFac=NULL,signifLevel=0.05,bwFac=1
       if (dmn==2)
       {
          currPolyMat <- cbind(curvHDRpolys[[j]]$x,curvHDRpolys[[j]]$y)
-         inFilterNum <- inFilterNum + as.numeric(flowCore:::inpolygon(xOrig,currPolyMat))
+         inFilterNum <- inFilterNum + as.numeric(inpolygon(xOrig,currPolyMat))
       }
 
       if (dmn==3)
       {
-         pip3dInfo <- misc3d:::t2ve(curvHDRpolys[[j]])
+         pip3dInfo <- t2ve(curvHDRpolys[[j]])
          currVertices <- t(pip3dInfo$vb)
          currFaces    <- t(pip3dInfo$ib)
          inFilterNum <- inFilterNum + as.numeric(pip3d(currVertices,currFaces,xOrig)==1)
@@ -462,10 +470,9 @@ curvHDRfilter <- function(x,HDRlevel=0.1,growthFac=NULL,signifLevel=0.05,bwFac=1
    class(outObj) <- "curvHDRfilter"
 
    if (!quiet)
-     cat("Finished obtaining curvHDR filters.\n\n")
+     message("Finished obtaining curvHDR filters.")
    
    return(outObj)
 }
 
 ############ End of curvHDRfilter ###########
-
