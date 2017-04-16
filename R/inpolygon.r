@@ -3,7 +3,7 @@
 # R wrapper for C function inPolygon checks for input
 # arguments and makes sure that the polygon is closed
 
-# Last changed: 07 MAR 2016
+# Last changed: 04 APR 2017
 
 inpolygon <- function(points, vertices)
 {
@@ -22,7 +22,11 @@ inpolygon <- function(points, vertices)
              "of a polygon on a two-dimensional plane", call.=FALSE)
 
     ## call C function
-    .Call("inPolygon", points, vertices, PACKAGE="curvHDR")
+
+    # NOTE: In April 2017 M. McLean added this line in response to
+    # the `registering of native routines' new requirement.   
+
+    .Call(C_inPolygon, points, vertices, PACKAGE="curvHDR")
 }
 
 ############ End of inpolygon ##########

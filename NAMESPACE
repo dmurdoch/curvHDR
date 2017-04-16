@@ -1,7 +1,7 @@
 ## exportPattern("^[^\\.]")
 S3method(plot,curvHDRfilter)
 export(curvHDRfilter)
-useDynLib(curvHDR)
+useDynLib(curvHDR, .registration = TRUE, .fixes = "C_")
 importFrom(stats,IQR)
 importFrom(stats,sd)
 importFrom(stats,qnorm)

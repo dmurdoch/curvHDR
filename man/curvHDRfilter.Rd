@@ -102,17 +102,16 @@ print(gate1b$poly) # List of intervals that define gate1b.
 xBiva <- cbind(c(rnorm(1000,-2),rnorm(1000,2)),
                c(rnorm(1000,-2),rnorm(1000,2)))
 
-gate2a <- curvHDRfilter(xBiva)
+\dontrun{gate2a <- curvHDRfilter(xBiva)
 plot(gate2a)
-\dontrun{
 print(gate2a$poly) # List of polygon vertices that define gate2a.
 print(gate2a$insideFilter) # Indicators of inclusion of
                              # xBiva inside gate2a.
 }
 
+\dontrun{
 gate2b <- curvHDRfilter(xBiva,HDRlevel=0.5)
 plot(gate2b)
-\dontrun{
 print(gate2b$poly)           # List of polygon vertices that define gate2b.
 print(gate2b$insideFilter)   # Indicators of inclusion of
                              # xBiva inside gate2b.

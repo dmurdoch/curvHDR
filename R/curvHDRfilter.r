@@ -4,7 +4,7 @@
 # multivariate continuous data. The current version
 # supports univaraite, bivariate and trivariate data.
 
-# Last changed: 07 MAR 2016
+# Last changed: 04 APR 2017
 
 #' @importFrom rgl rgl.clear rgl.bg rgl.spheres
 #' @importFrom misc3d contour3d
@@ -104,7 +104,7 @@ curvHDRfilter <- function(x,HDRlevel=0.1,growthFac=NULL,signifLevel=0.05,bwFac=1
            rgl.spheres(xSub[,1],xSub[,2],xSub[,3],col="orange",alpha=0.2,radius=0.025)
       }
         
-      message("Hit Enter to continue.") ; ans <- readline()
+      ans <- readline("Hit Enter to continue.")
    }
 
    if (!quiet)
@@ -164,7 +164,7 @@ curvHDRfilter <- function(x,HDRlevel=0.1,growthFac=NULL,signifLevel=0.05,bwFac=1
             drawScene.rgl(curvPolys[[j]],add=TRUE)   
          }          
       }
-      message("Hit Enter to continue.") ; ans <- readline()
+      ans <- readline("Hit Enter to continue.")
    }
    
    if (!quiet)
@@ -291,7 +291,7 @@ curvHDRfilter <- function(x,HDRlevel=0.1,growthFac=NULL,signifLevel=0.05,bwFac=1
             drawScene.rgl(grownPolys[[j]],add=TRUE)
          }      
       }  
-      message("Hit Enter to continue.") ; ans <- readline()
+      ans <- readline("Hit Enter to continue.")
    }
 
    if (!quiet)
@@ -404,7 +404,7 @@ curvHDRfilter <- function(x,HDRlevel=0.1,growthFac=NULL,signifLevel=0.05,bwFac=1
             drawScene.rgl(curvHDRpolys[[j]],add=TRUE)
          }
       }  
-      message("Hit Enter to continue.") ; ans <- readline()   
+      ans <- readline("Hit Enter to continue.")   
    }
 
    for (j in 1:length(curvHDRpolys))

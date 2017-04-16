@@ -1,0 +1,16 @@
+\documentclass[a4paper]{article}
+%\VignetteIndexEntry{curvHDR User Manual}
+%\VignettePackage{curvHDR} 
+\usepackage{pdfpages}
+
+\begin{document}
+
+\newread\PDFtoInclude
+\openin\PDFtoInclude=curvHDR.pdf
+\ifeof\PDFtoInclude
+\typeout{No file curvHDR.pdf}
+\else
+\includepdf[fitpaper=true,pages=-]{curvHDR.pdf}
+\fi
+
+\end{document}
