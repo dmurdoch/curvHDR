@@ -106,7 +106,7 @@ SEXP inPolygon(SEXP _data, SEXP _vertices)
 
   /* check input argument _data */
   PROTECT(dimData = getAttrib(_data, R_DimSymbol));
-  if(((!isReal(_data)) & !isInteger(_data)) | isNull(dimData) | (LENGTH(dimData)!=2)| (INTEGER(dimData)[1]!=2))
+  if(((!isReal(_data)) && !isInteger(_data)) || isNull(dimData) || (LENGTH(dimData)!=2) || (INTEGER(dimData)[1]!=2))
      error("Invalid argument 'data': must be a real matrix with two columns.");
   data   = REAL(AS_NUMERIC(_data));
   nrd = INTEGER(dimData)[0];
