@@ -89,8 +89,8 @@ plot3D <- function(x,y,z,main=NULL,
 
    # Set up axes for unit cube:
    
-   rgl.clear()
-   rgl.bg(color=bgCol)
+   clear3d()
+   bg3d(color=bgCol)
    rgl.lines3d(c(0,1.1),rep(0,2),rep(0,2),
                 size=3,col=axCol,add=TRUE)
    rgl.lines3d(rep(0,2),c(0,1.1),rep(0,2),
@@ -98,23 +98,23 @@ plot3D <- function(x,y,z,main=NULL,
    rgl.lines3d(rep(0,2),rep(0,2),c(0,1.1),
                 size=3,col=axCol,add=TRUE)
 
-   rgl.texts(1.1,0,0,"x",col=axCol)
-   rgl.texts(0,1.1,0,"y",col=axCol)
-   rgl.texts(0,0,1.1,"z",col=axCol)
+   text3d(1.1,0,0,"x",col=axCol)
+   text3d(0,1.1,0,"y",col=axCol)
+   text3d(0,0,1.1,"z",col=axCol)
    
-   rgl.texts(1.15,0,0,xlab,col=labCol)
-   rgl.texts(0,1.15,0,ylab,col=labCol)
-   rgl.texts(0,0,1.15,zlab,col=labCol)
+   text3d(1.15,0,0,xlab,col=labCol)
+   text3d(0,1.15,0,ylab,col=labCol)
+   text3d(0,0,1.15,zlab,col=labCol)
    
    if (addBase)
-      rgl.quads(c(-0.1,-0.1,1.1,1.1),
+      quads3d(c(-0.1,-0.1,1.1,1.1),
                  c(-0.1,1.1,1.1,-0.1),
                  rep(0,4),col=baseCol,alpha=baseAlpha)
 
   # Add `main' string:
 
   if (!is.null(main))
-     rgl.texts(0.5,1.15,0,main,col=axCol)
+     text3d(0.5,1.15,0,main,col=axCol)
 
   # Add tick marks:
 
@@ -123,7 +123,7 @@ plot3D <- function(x,y,z,main=NULL,
   {
      rgl.lines3d(rep(txtcks[ix],2),rep(0,2),c(0,0.015),col=axCol,add=TRUE)
      rgl.lines3d(rep(txtcks[ix],2),c(0,0.015),rep(0,2),col=axCol,add=TRUE)
-     rgl.texts(txtcks[ix],-0.05,-0.05,as.character(xtcks[ix]),col=tickCol)
+     text3d(txtcks[ix],-0.05,-0.05,as.character(xtcks[ix]),col=tickCol)
   }
    
   tytcks <- tranUnitInt(ytcks,a.y,b.y)
@@ -131,7 +131,7 @@ plot3D <- function(x,y,z,main=NULL,
   {
      rgl.lines3d(rep(0,2),rep(tytcks[iy],2),c(0,0.015),col=axCol,add=TRUE)
      rgl.lines3d(c(0,0.015),rep(tytcks[iy],2),rep(0,2),col=axCol,add=TRUE)
-     rgl.texts(-0.05,tytcks[iy],-0.05,as.character(ytcks[iy]),col=tickCol)
+     text3d(-0.05,tytcks[iy],-0.05,as.character(ytcks[iy]),col=tickCol)
   }
 
   tztcks <- tranUnitInt(ztcks,a.z,b.z)
@@ -139,16 +139,16 @@ plot3D <- function(x,y,z,main=NULL,
   {
      rgl.lines3d(rep(0,2),c(0,0.015),rep(tztcks[iz],2),col=axCol,add=TRUE)
      rgl.lines3d(c(0,0.015),rep(0,2),rep(tztcks[iz],2),col=axCol,add=TRUE)
-     rgl.texts(-0.05,-0.05,tztcks[iz],as.character(ztcks[iz]),col=tickCol)
+     text3d(-0.05,-0.05,tztcks[iz],as.character(ztcks[iz]),col=tickCol)
   }
 
   # Add points:
    
   if (type=="p")
-     rgl.spheres(tx,ty,tz,col=ptCol,radius=cex*0.015)
+     spheres3d(tx,ty,tz,col=ptCol,radius=cex*0.015)
 ################
 #  CHANGE FOR 12 AUG 2010 TALK   
-#     rgl.spheres(tx,ty,tz,col=ptCol,alpha=ptAlpha,radius=cex*0.015)
+#     spheres3d(tx,ty,tz,col=ptCol,alpha=ptAlpha,radius=cex*0.015)
 ###########################
    
   # Add limit information as attributes:

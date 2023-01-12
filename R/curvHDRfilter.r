@@ -6,7 +6,7 @@
 
 # Last changed: 04 APR 2017
 
-#' @importFrom rgl rgl.clear rgl.bg rgl.spheres
+#' @importFrom rgl clear3d bg3d spheres3d
 #' @importFrom misc3d contour3d
 #' @importFrom graphics polygon plot hist
 #' @importFrom stats IQR sd qnorm
@@ -100,8 +100,8 @@ curvHDRfilter <- function(x,HDRlevel=0.1,growthFac=NULL,signifLevel=0.05,bwFac=1
       {
            if (nrow(x)<=2000) xSub <- x
            if (nrow(x)> 2000) xSub <- x[sample(1:nrow(x),2000),]
-           rgl.clear() ; rgl.bg(color="white")
-           rgl.spheres(xSub[,1],xSub[,2],xSub[,3],col="orange",alpha=0.2,radius=0.025)
+           clear3d() ; bg3d(color="white")
+           spheres3d(xSub[,1],xSub[,2],xSub[,3],col="orange",alpha=0.2,radius=0.025)
       }
         
       ans <- readline("Hit Enter to continue.")
